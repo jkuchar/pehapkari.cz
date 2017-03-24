@@ -18,7 +18,7 @@ který nastavení popisoval velice jednoduše. Tak jednoduché jsem to bohužel 
 
 ## Dodatečná PHP rozšíření
 
-V odkazovaném článku je zmíněn Docker image `geertw/docker-php-ci`. Většina lidí asi sáhne buď po něm, nebo po čístém PHP image.
+V odkazovaném článku je zmíněn Docker image `geertw/docker-php-ci`. Většina lidí asi sáhne buď po něm, nebo po čistém PHP image.
 Po chvíli jsem ale zjistil, že mi v něm spousta rozšíření chybí. Musel jsem tedy řešit jak je doinstalovat. Originální image
 kompiluje PHP ze zdrojáků a tak když chci rozšíření doinstalovat, musím ty standardní instalovat přes `docker-php-ext-install`
 a ty nestandardní přes `pecl install`. Některé je navíc potřeba nastavit přes `docker-php-ext-configure` a abych nezapomněl,
@@ -45,8 +45,8 @@ Věcí, které se stahovaly, instalovaly a spouštěly, bylo hodně. Build pak b
 
 * Je potřeba nedefinovat si `stages`, aby CI vědělo, jak má po sobě joby pouštět. Jinak je bude pouštět klidně paralelně. Jindy zase paralelní spouštění chceme.
 * U jobů, které mají pouze připravit nějaká data dalším jobům, je pak potřeba nastavit `artifacts`, aby data byla zachována.
-* Artefaktům je zase potřeba nastavit `expire_in`, aby se neuchovávaly věčně.
-* I tak je to hodně řádků. Hodilo by se to něčím zjednodušit. Jen náhodou jsem narazil na šablony, když jsem hledal v dokumentaci něco úplně jiného :-)
+* <del>Artefaktům je zase potřeba nastavit `expire_in`, aby se neuchovávaly věčně.</del> (v [GitLab > 9.0 automaticky](https://about.gitlab.com/2017/03/22/gitlab-9-0-released/))
+* I tak je to hodně řádků. Hodilo by se to něčím zjednodušit. Jen náhodou jsem narazil na [šablony](https://docs.gitlab.com/ce/ci/yaml/#special-yaml-features), když jsem hledal v dokumentaci něco úplně jiného :-)
 * Každý job musí mít definován nějaký image, jinak používá image defaultní, definovaný na CI runneru.
 
 Takto vypadá výsledek:
@@ -58,10 +58,10 @@ stages:
 
 download:
     stage: download
-    image: sunfoxcz/docker-php-build:5.6
+    image: sunfoxcz/docker-php-build:5.6   
     script:
-        - "composer create-project --no-interaction --no-progress --prefer-dist jakub-onderka/php-parallel-lint temp/php-parallel-lint ~0.9"
-        - "composer create-project --no-interaction --no-progress --prefer-dist nette/code-checker temp/code-checker ~2.5.0"
+        - composer create-project --no-interaction --no-progress --prefer-dist jakub-onderka/php-parallel-lint temp/php-parallel-lint ~0.9
+        - composer create-project --no-interaction --no-progress --prefer-dist nette/code-checker temp/code-checker ~2.5.0
     artifacts:
         paths:
             - temp/php-parallel-lint
@@ -112,7 +112,7 @@ hledat. Nakonec jsem našel, že se notifikace do Slacku dají nastavit ve webov
 jen build, tak jsem to nastavil tam a neřešil, jak to nastavit v konfiguraci buildu.
 
 Po úspěšném buildu jsem ale chtěl také zavolat [Deployer](https://github.com/REBELinBLUE/deployer), přes který aktuálně
-nasazuji na server. Tam už jsem to nakonec řešit musel. Po nějakém tom zkoumání vypadal výledek takto:
+nasazuji na server. Tam už jsem to nakonec řešit musel. Po nějakém tom zkoumání vypadal výsledek takto:
 
 ```yaml
 stages:
@@ -125,12 +125,12 @@ deploy to production:
     environment: production
     image: sunfoxcz/docker-php-build:5.6
     script:
-        - "curl -s -X POST https://deployer.domain.tld/deploy/$DEPLOYER_WEBHOOK_KEY"
+        - curl -s -X POST https://deployer.domain.tld/deploy/$DEPLOYER_WEBHOOK_KEY
     only:
         - master
 ```
 
-* Přidal jsem další položku do `stages`, aby se deploy spouštěl až nakonec.
+* Přidal jsem další položku do `stages`, aby se deploy spouštěl až na konec.
 * `environment` je potřeba nejdříve založit přes webové rozhraní. Poté je tam vidět, co je nasazeno. Snadno se pak přidá např. staging prostředí.
 * Nasazovat do produkce chci jen z masteru.
 * Super je, že k nasazení nedojde, ať už skončí špatně testy v jakékoliv verzi PHP.
