@@ -8,27 +8,23 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 final class ZipCodeConstraint extends Constraint
 {
-    /**
-     * @var string
+    /*** @var string
      */
     public $country;
 
-    /**
-     * @var string
+    /*** @var string
      */
     public $message = 'This value is not a valid ZIP code.';
 
-    /**
-     * @param mixed[] $options
-     */
     public function __construct(?array $options = null)
-    {
+    
+{
+
         parent::__construct($options);
 
         if (! in_array($this->country, IsoCodesZipCode::getAvailableCountries())) {
-            throw new ConstraintDefinitionException(sprintf(
-                'The option "country" must be one of "%s" or "all"',
-                implode('", "', IsoCodesZipCode::getAvailableCountries())
+throw new ConstraintDefinitionException(sprintf(
+                'The option "country" must be one of "%s" or "all"', implode('", "', IsoCodesZipCode::getAvailableCountries())
             ));
         }
     }

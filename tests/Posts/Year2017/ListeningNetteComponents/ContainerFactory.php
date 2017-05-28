@@ -9,7 +9,9 @@ use Nette\Utils\FileSystem;
 final class ContainerFactory
 {
     public function create(): Container
-    {
+    
+{
+
         $configurator = new Configurator;
         $configurator->setTempDirectory($this->createAndReturnTempDir());
         $configurator->addConfig(__DIR__ . '/config/config.neon');
@@ -18,7 +20,9 @@ final class ContainerFactory
     }
 
     private function createAndReturnTempDir(): string
-    {
+    
+{
+
         $tempDir = sys_get_temp_dir() . '/pehapkari-listening-nette-components';
         FileSystem::delete($tempDir);
         FileSystem::createDir($tempDir);

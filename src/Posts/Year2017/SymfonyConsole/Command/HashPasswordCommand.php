@@ -11,21 +11,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class HashPasswordCommand extends Command
 {
     protected function configure(): void
-    {
+    
+{
+
         $this->setName('hash-password');
         $this->setDescription('Hashes provided password with BCRYPT and prints to output.');
         $this->addArgument('password', InputArgument::REQUIRED, 'Password to be hashed.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    
+{
+
         $password = $input->getArgument('password');
 
         $hashedPassword = Passwords::hash($password);
 
         $output->writeln(sprintf(
-            'Your hashed password is: <info>%s</info>',
-            $hashedPassword
+            'Your hashed password is: <info>%s</info>', $hashedPassword
         ));
 
         return 0;

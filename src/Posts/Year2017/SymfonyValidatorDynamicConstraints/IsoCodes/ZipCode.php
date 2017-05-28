@@ -18,27 +18,26 @@ final class ZipCode
     ];
 
     public static function validate(string $zipcode, string $country): bool
-    {
+    
+{
+
         $country = strtoupper($country);
 
         if (! isset(self::$patterns[$country])) {
-            throw new InvalidArgumentException(sprintf(
-                'The zipcode validator for "%s" does not exists yet: feel free to add it.',
-                $country
+throw new InvalidArgumentException(sprintf(
+                'The zipcode validator for "%s" does not exists yet: feel free to add it.', $country
             ));
         }
 
         return (bool) preg_match(
-            '/^(' . self::$patterns[$country] . ')$/',
-            $zipcode
+            '/^(' . self::$patterns[$country] . ')$/', $zipcode
         );
     }
 
-    /**
-     * @return string[]
-     */
     public static function getAvailableCountries(): array
-    {
+    
+{
+
         return array_keys(self::$patterns);
     }
 }

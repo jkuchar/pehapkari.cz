@@ -7,36 +7,42 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class Event
 {
-    /**
-     * @var \DateTime
+    /*** @var \DateTime
      * @Assert\Type("DateTime")
      */
     protected $startDate;
 
-    /**
-     * @var \DateTime
+    /*** @var \DateTime
      * @Assert\Type("DateTime")
      * @Assert\Expression("value >= this.getStartDate()")
      */
     protected $endDate;
 
     public function getStartDate(): DateTime
-    {
+    
+{
+
         return $this->startDate;
     }
 
     public function setStartDate(DateTime $startDate): void
-    {
+    
+{
+
         $this->startDate = $startDate;
     }
 
     public function getEndDate(): DateTime
-    {
+    
+{
+
         return $this->endDate;
     }
 
     public function setEndDate(DateTime $endDate): void
-    {
+    
+{
+
         $this->endDate = $endDate;
     }
 }

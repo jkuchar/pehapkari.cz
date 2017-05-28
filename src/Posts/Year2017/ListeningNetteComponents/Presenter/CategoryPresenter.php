@@ -37,18 +37,15 @@ final class CategoryPresenter extends Presenter
         ]
     ];
 
-    /**
-     * @var AddToBasketControlFactoryInterface
+    /*** @var AddToBasketControlFactoryInterface
      */
     private $addToBasketControlFactory;
 
-    /**
-     * @var BasketContentControlFactoryInterface
+    /*** @var BasketContentControlFactoryInterface
      */
     private $basketContentControlFactory;
 
-    /**
-     * @var EventDispatcherInterface
+    /*** @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
@@ -56,41 +53,49 @@ final class CategoryPresenter extends Presenter
         AddToBasketControlFactoryInterface $addToBasketControlFactory,
         BasketContentControlFactoryInterface $basketContentControlFactory,
         EventDispatcherInterface $eventDispatcher
-    ) {
+    ) 
+{
+
         $this->addToBasketControlFactory = $addToBasketControlFactory;
         $this->basketContentControlFactory = $basketContentControlFactory;
         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function startup(): void
-    {
+    
+{
+
         parent::startup();
 
         $basketContentControl = $this->getComponent('basketContent');
 
         $this->eventDispatcher->addListener(
-            ProductAddedToBasketEvent::class,
-            [$basketContentControl, 'onProductAddedToBasketEvent']
+            ProductAddedToBasketEvent::class, [$basketContentControl, 'onProductAddedToBasketEvent']
         );
     }
 
     public function renderDefault(): void
-    {
+    
+{
+
         $this->getTemplate()->setParameters([
             'products' => self::PRODUCTS
         ]);
     }
 
     protected function createComponentAddToBasket(): Multiplier
-    {
+    
+{
+
         // Musíme použít Multiplier, protože potřebujeme samostatnou instanci pro každý produkt.
         // Co je to Multiplier? Více informací najdeš ve článku https://pla.nette.org/cs/multiplier.
 
         return new Multiplier(function ($productId) {
+
             $product = [];
             foreach (self::PRODUCTS as $productData) {
-                if ($productData['id'] === (int) $productId) {
-                    $product = $productData;
+if ($productData['id'] === (int) $productId) {
+$product = $productData;
                     break;
                 }
             }
@@ -100,7 +105,9 @@ final class CategoryPresenter extends Presenter
     }
 
     protected function createComponentBasketContent(): BasketContentControl
-    {
+    
+{
+
         return $this->basketContentControlFactory->create();
     }
 }

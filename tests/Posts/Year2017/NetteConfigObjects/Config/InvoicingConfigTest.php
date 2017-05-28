@@ -14,21 +14,21 @@ final class InvoicingConfigTest extends TestCase
      */
     private const PDF_PATH = 'tests/Posts/Year2017/NetteConfigObjects/../invoices';
 
-    /**
-     * @var Container
+    /*** @var Container
      */
     private $container;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
-    {
+    
+{
+
         $this->container = (new ContainerFactory)->create();
     }
 
     public function testBasicRequest(): void
-    {
+    
+{
+
         /** @var InvoicingConfig $config */
         $config = $this->container->getByType(InvoicingConfig::class);
 

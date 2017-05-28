@@ -11,7 +11,9 @@ use Symfony\Component\Console\Output\BufferedOutput;
 final class HashPasswordCommandTest extends TestCase
 {
     public function test(): void
-    {
+    
+{
+
         $application = new Application;
         $application->setAutoExit(false); // required for testing output
         $application->add(new HashPasswordCommand);

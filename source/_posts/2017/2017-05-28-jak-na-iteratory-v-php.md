@@ -30,7 +30,7 @@ Kolik prvků bude v `$accumulator`?
 
 Dva vnořené cykly do sebe by měly vytvořit kartézský součin. Tedy 4 řádky. A ono se tak opravdu stane!
 
-Nyní nahradím obyčejné pole za [`SplFixedArray`](https://secure.php.net/manual/en/class.splfixedarray.php). Kolik bude prvků v `$accumulator` teď? 
+Nyní nahradím obyčejné pole za [`SplFixedArray`](https://secure.php.net/manual/en/class.splfixedarray.php). Kolik bude prvků v `$accumulator` teď?
 
 ```php
 $a = new \SplFixedArray(2);
@@ -47,7 +47,7 @@ foreach($a as $key1 => $val1) {
 }
 ```
 
-Budou tam **dva**! 
+Budou tam **dva**!
 
 Teď si asi říkáte, k čemu je dobré iterovat dvakrát ten samý objekt v sobě. To přece nikdo nepotřebuje. Pojďme tedy na další ukázku.
 
@@ -107,7 +107,7 @@ Aha! `Foreach` tedy nastaví vždy na začátku pozici na začátek a projde pol
 2. vnější foreach přečte první prvek (a posune se na další)
 3. vnitřní foreach nastaví ukazatel na začátek
 4. vnitřní foreach přečtě první prvek (a posune se na daší)
-5. vnitřní foreach přečtě druhý prvek (a posune se na daší)    
+5. vnitřní foreach přečtě druhý prvek (a posune se na daší)
 6. vnitřní foreach zjistí, že již v iterátoru nic není, končí
 7. vnější foreach zjistí, že v iterátoru již nic není, končí
 
@@ -222,7 +222,7 @@ Z výše uvedeného tedy plyne, že `iterable`, `Traversable`, `Iterator` a `Ite
 Kolekce by neměla implementuje `\Iterator` přímo, protože koncepčně má potom dvě zodpovědnosti:
 
 1. uchovává svoje data
-2. implementuje iterátor sama sebe 
+2. implementuje iterátor sama sebe
 
-Pokud tyto dvě zodpovědnosti rozdělíme, je možné mít iterátorů více. Každý pak může zprostředkovat jiný pohled na data. (přefiltrovat, seřadit, ...) Navíc takové iterátory poté lze skládat i dohromady. 
+Pokud tyto dvě zodpovědnosti rozdělíme, je možné mít iterátorů více. Každý pak může zprostředkovat jiný pohled na data. (přefiltrovat, seřadit, ...) Navíc takové iterátory poté lze skládat i dohromady.
 

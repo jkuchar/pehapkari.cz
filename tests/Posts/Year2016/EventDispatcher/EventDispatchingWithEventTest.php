@@ -10,7 +10,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 final class EventDispatchingWithEventTest extends TestCase
 {
     public function test(): void
-    {
+    
+{
+
         $eventDispatcher = new EventDispatcher;
         $eventAwareNotifyMeOnVideoPublishedEventSubscriber = new EventAwareNotifyMeOnVideoPublishedEventSubscriber;
         $eventDispatcher->addSubscriber($eventAwareNotifyMeOnVideoPublishedEventSubscriber);
@@ -21,8 +23,7 @@ final class EventDispatchingWithEventTest extends TestCase
         $eventDispatcher->dispatch('youtube.newVideoPublished', $youtuberNameEvent);
 
         $this->assertSame(
-            'Jirka Král',
-            $eventAwareNotifyMeOnVideoPublishedEventSubscriber->getYoutuberUserName()
+            'Jirka Král', $eventAwareNotifyMeOnVideoPublishedEventSubscriber->getYoutuberUserName()
         );
     }
 }

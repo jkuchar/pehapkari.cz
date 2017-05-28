@@ -6,26 +6,28 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class NotifyMeOnVideoPublishedEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var bool
+    /*** @var bool
      */
     private $isUserNotified = false;
 
-    /**
-     * @return string[]
-     */
     public static function getSubscribedEvents(): array
-    {
+    
+{
+
         return ['youtube.newVideoPublished' => 'notifyUserAboutVideo'];
     }
 
     public function notifyUserAboutVideo(): void
-    {
+    
+{
+
         $this->isUserNotified = true;
     }
 
     public function isUserNotified(): bool
-    {
+    
+{
+
         return $this->isUserNotified;
     }
 }

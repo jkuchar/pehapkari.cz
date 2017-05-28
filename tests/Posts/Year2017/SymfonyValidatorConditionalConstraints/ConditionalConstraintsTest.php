@@ -11,46 +11,51 @@ use Symfony\Component\Validator\ValidatorBuilder;
 
 final class ConditionalConstraintsTest extends TestCase
 {
-    /**
-     * @var ValidatorInterface
+    /*** @var ValidatorInterface
      */
     private $validator;
 
     protected function setUp(): void
-    {
+    
+{
+
         $builder = new ValidatorBuilder;
         $builder->enableAnnotationMapping();
         $this->validator = $builder->getValidator();
     }
 
     public function testViolationsFromDefaultAndCustomGroup(): void
-    {
+    
+{
+
         $client = new Client;
 
         $this->assertViolations(
             [
                 'type' => 'This value should not be null.',
                 'company' => 'This value should not be blank.',
-            ],
-            $this->validator->validate($client)
+            ], $this->validator->validate($client)
         );
     }
 
     public function testViolationsFromCompanyGroup(): void
-    {
+    
+{
+
         $client = new Client;
         $client->setType(Client::TYPE_COMPANY);
 
         $this->assertViolations(
             [
                 'company' => 'This value should not be blank.',
-            ],
-            $this->validator->validate($client)
+            ], $this->validator->validate($client)
         );
     }
 
     public function testViolationsFromPersonGroup(): void
-    {
+    
+{
+
         $client = new Client;
         $client->setType(Client::TYPE_PERSON);
 
@@ -58,19 +63,17 @@ final class ConditionalConstraintsTest extends TestCase
             [
                 'firstname' => 'This value should not be blank.',
                 'lastname' => 'This value should not be blank.',
-            ],
-            $this->validator->validate($client)
+            ], $this->validator->validate($client)
         );
     }
 
-    /**
-     * @param string[] $expected
-     */
     private function assertViolations(array $expected, ConstraintViolationListInterface $violationList): void
-    {
+    
+{
+
         $violations = [];
         foreach ($violationList as $violation) {
-            /* @var ConstraintViolationInterface $violation */
+/* @var ConstraintViolationInterface $violation */
             $violations[$violation->getPropertyPath()] = $violation->getMessage();
         }
 

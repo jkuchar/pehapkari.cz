@@ -9,7 +9,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 final class EventDispatchingTest extends TestCase
 {
     public function test(): void
-    {
+    
+{
+
         $eventDispatcher = new EventDispatcher;
         $notifyMeOnVideoPublishedEventSubscriber = new NotifyMeOnVideoPublishedEventSubscriber;
         $eventDispatcher->addSubscriber($notifyMeOnVideoPublishedEventSubscriber);

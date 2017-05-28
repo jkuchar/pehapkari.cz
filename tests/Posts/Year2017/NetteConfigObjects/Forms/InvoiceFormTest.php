@@ -14,21 +14,21 @@ use PHPUnit\Framework\TestCase;
 
 final class InvoiceFormTest extends TestCase
 {
-    /**
-     * @var Container
+    /*** @var Container
      */
     private $container;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
-    {
+    
+{
+
         $this->container = (new ContainerFactory)->create();
     }
 
     public function testOldForm(): void
-    {
+    
+{
+
         /** @var InvoiceFormOldFactory $factory */
         $factory = $this->container->getByType(InvoiceFormOldFactory::class);
         $control = $factory->create();
@@ -43,7 +43,9 @@ final class InvoiceFormTest extends TestCase
     }
 
     public function testNewForm(): void
-    {
+    
+{
+
         /** @var InvoiceFormNewFactoryInterface $factory */
         $factory = $this->container->getByType(InvoiceFormNewFactoryInterface::class);
         $control = $factory->create();

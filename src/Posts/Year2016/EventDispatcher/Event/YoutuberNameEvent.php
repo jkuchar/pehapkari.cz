@@ -6,18 +6,21 @@ use Symfony\Component\EventDispatcher\Event;
 
 final class YoutuberNameEvent extends Event
 {
-    /**
-     * @var string
+    /*** @var string
      */
     private $youtuberName;
 
     public function __construct(string $youtuberName)
-    {
+    
+{
+
         $this->youtuberName = $youtuberName;
     }
 
     public function getYoutuberName(): string
-    {
+    
+{
+
         return $this->youtuberName;
     }
 }

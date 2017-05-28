@@ -12,23 +12,28 @@ use Pehapkari\Website\Posts\Year2017\NetteConfigObjects\Config\InvoicingConfig;
  */
 final class InvoiceFormNew extends Control
 {
-    /**
-     * @var InvoicingConfig
+    /*** @var InvoicingConfig
      */
     private $config;
 
     public function __construct(InvoicingConfig $config)
-    {
+    
+{
+
         $this->config = $config;
     }
 
     public function render(): void
-    {
+    
+{
+
         $this->getTemplate()->render(__DIR__ . '/InvoiceForm.latte');
     }
 
     protected function createComponentInvoiceForm(): Form
-    {
+    
+{
+
         $form = new Form;
 
         $form->addText('maturity', 'Splatnost')

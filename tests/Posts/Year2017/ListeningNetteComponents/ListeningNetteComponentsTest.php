@@ -17,19 +17,22 @@ final class ListeningNetteComponentsTest extends TestCase
      */
     public const PRESENTER_NAME = 'Category';
 
-    /**
-     * @var IPresenterFactory
+    /*** @var IPresenterFactory
      */
     private $presenterFactory;
 
     protected function setUp(): void
-    {
+    
+{
+
         $container = (new ContainerFactory)->create();
         $this->presenterFactory = $container->getByType(IPresenterFactory::class);
     }
 
     public function testBasicRequest(): void
-    {
+    
+{
+
         $request = new Request(self::PRESENTER_NAME, 'GET');
         $presenter = $this->createPresenter();
         /** @var TextResponse $response */
@@ -38,13 +41,14 @@ final class ListeningNetteComponentsTest extends TestCase
         $this->assertInstanceOf(TextResponse::class, $response);
         $this->assertInstanceOf(Template::class, $response->getSource());
         $this->assertSame(
-            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/basic.request.txt'),
-            (string) $response->getSource()
+            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/basic.request.txt'), (string) $response->getSource()
         );
     }
 
     public function testAddToBasketFirstProductRequest(): void
-    {
+    
+{
+
         $request = new Request(self::PRESENTER_NAME, 'GET', ['do' => 'addToBasket-1-add']);
         $presenter = $this->createPresenter();
         /** @var TextResponse $response */
@@ -53,13 +57,14 @@ final class ListeningNetteComponentsTest extends TestCase
         $this->assertInstanceOf(TextResponse::class, $response);
         $this->assertInstanceOf(Template::class, $response->getSource());
         $this->assertSame(
-            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-first-product.request.txt'),
-            (string) $response->getSource()
+            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-first-product.request.txt'), (string) $response->getSource()
         );
     }
 
     public function testAddToBasketSecondProductRequest(): void
-    {
+    
+{
+
         $request = new Request(self::PRESENTER_NAME, 'GET', ['do' => 'addToBasket-2-add']);
         $presenter = $this->createPresenter();
         /** @var TextResponse $response */
@@ -68,13 +73,14 @@ final class ListeningNetteComponentsTest extends TestCase
         $this->assertInstanceOf(TextResponse::class, $response);
         $this->assertInstanceOf(Template::class, $response->getSource());
         $this->assertSame(
-            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-second-product.request.txt'),
-            (string) $response->getSource()
+            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-second-product.request.txt'), (string) $response->getSource()
         );
     }
 
     public function testAddToBasketThirdProductRequest(): void
-    {
+    
+{
+
         $request = new Request(self::PRESENTER_NAME, 'GET', ['do' => 'addToBasket-3-add']);
         $presenter = $this->createPresenter();
         /** @var TextResponse $response */
@@ -83,13 +89,14 @@ final class ListeningNetteComponentsTest extends TestCase
         $this->assertInstanceOf(TextResponse::class, $response);
         $this->assertInstanceOf(Template::class, $response->getSource());
         $this->assertSame(
-            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-third-product.request.txt'),
-            (string) $response->getSource()
+            $this->loadFileWithUnixLineEndings(__DIR__ . '/responses/success/add-to-basket-third-product.request.txt'), (string) $response->getSource()
         );
     }
 
     private function createPresenter(): IPresenter
-    {
+    
+{
+
         /** @var Presenter $categoryPresenter */
         $categoryPresenter = $this->presenterFactory->createPresenter(self::PRESENTER_NAME);
         $categoryPresenter->autoCanonicalize = false;
@@ -98,7 +105,9 @@ final class ListeningNetteComponentsTest extends TestCase
     }
 
     private function loadFileWithUnixLineEndings(string $file): string
-    {
+    
+{
+
         return str_replace("\r\n", "\n", file_get_contents($file));
     }
 }

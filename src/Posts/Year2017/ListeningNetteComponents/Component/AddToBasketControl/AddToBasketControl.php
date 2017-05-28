@@ -8,44 +8,42 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class AddToBasketControl extends Control
 {
-    /**
-     * @var int[]|string[]
+    /*** @var int[]|string[]
      */
     private $product;
 
-    /**
-     * @var EventDispatcherInterface
+    /*** @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
-    /**
-     * @param int[]|string[] $product
-     */
     public function __construct(array $product, EventDispatcherInterface $eventDispatcher)
-    {
+    
+{
+
         $this->product = $product;
         $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handleAdd(): void
-    {
+    
+{
+
         // Zde může být nějaká složitější logika
         // např.: $this->basketFacade->addProduct($this->product);
 
         // vytvoříme instanci události
         $productAddedToBasketEvent = new ProductAddedToBasketEvent(
-            $this->product['id'],
-            $this->product['name'],
-            $this->product['price']
+            $this->product['id'], $this->product['name'], $this->product['price']
         );
         $this->eventDispatcher->dispatch(
-            ProductAddedToBasketEvent::class,
-            $productAddedToBasketEvent
+            ProductAddedToBasketEvent::class, $productAddedToBasketEvent
         ); // vyvoláme událost!
     }
 
     public function render(): void
-    {
+    
+{
+
         $this->template->render(__DIR__ . '/templates/default.latte');
     }
 }

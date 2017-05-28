@@ -9,24 +9,21 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class Address
 {
-    /**
-     * @var string
+    /*** @var string
      * @Assert\NotBlank()
      * @Assert\Country()
      */
     protected $country;
 
-    /**
-     * @var string
+    /*** @var string
      * @Assert\NotBlank()
      */
     protected $zipcode;
 
-    /**
-     * @Assert\Callback(groups = "zipcode")
-     */
     public function validateZipcode(ExecutionContextInterface $context): void
-    {
+    
+{
+
         $constraint = new ZipCodeConstraint(['country' => $this->country]);
         $context
             ->getValidator()
@@ -36,22 +33,30 @@ final class Address
     }
 
     public function getCountry(): string
-    {
+    
+{
+
         return $this->country;
     }
 
     public function setCountry(string $country): void
-    {
+    
+{
+
         $this->country = $country;
     }
 
     public function getZipcode(): string
-    {
+    
+{
+
         return $this->zipcode;
     }
 
     public function setZipcode(string $zipcode): void
-    {
+    
+{
+
         $this->zipcode = $zipcode;
     }
 }

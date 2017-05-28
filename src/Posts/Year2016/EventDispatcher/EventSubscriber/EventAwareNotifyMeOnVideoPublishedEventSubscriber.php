@@ -7,26 +7,28 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EventAwareNotifyMeOnVideoPublishedEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var string
+    /*** @var string
      */
     private $youtuberUserName = '';
 
-    /**
-     * @return string[]
-     */
     public static function getSubscribedEvents(): array
-    {
+    
+{
+
         return ['youtube.newVideoPublished' => 'notifyUserAboutVideo'];
     }
 
     public function notifyUserAboutVideo(YoutuberNameEvent $youtuberNameEvent): void
-    {
+    
+{
+
         $this->youtuberUserName = $youtuberNameEvent->getYoutuberName();
     }
 
     public function getYoutuberUserName(): string
-    {
+    
+{
+
         return $this->youtuberUserName;
     }
 }

@@ -11,26 +11,28 @@ use Nette\Bridges\ApplicationLatte\Template;
  */
 final class InvoiceFormOld extends Control
 {
-    /**
-     * @var mixed[]
+    /*** @var mixed[]
      */
     private $config;
 
-    /**
-     * @param mixed[] $config
-     */
     public function __construct(array $config)
-    {
+    
+{
+
         $this->config = $config;
     }
 
     public function render(): void
-    {
+    
+{
+
         $this->getTemplate()->render(__DIR__ . '/InvoiceForm.latte');
     }
 
     protected function createComponentInvoiceForm(): Form
-    {
+    
+{
+
         $form = new Form;
 
         $form->addText('maturity', 'Splatnost')

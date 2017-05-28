@@ -12,20 +12,23 @@ use Symfony\Component\Validator\ValidatorBuilder;
 
 final class ComparisonConstraintsTest extends TestCase
 {
-    /**
-     * @var ValidatorInterface
+    /*** @var ValidatorInterface
      */
     private $validator;
 
     protected function setUp(): void
-    {
+    
+{
+
         $builder = new ValidatorBuilder;
         $builder->enableAnnotationMapping();
         $this->validator = $builder->getValidator();
     }
 
     public function testExpressionViolation(): void
-    {
+    
+{
+
         $event = new Event;
         $event->setStartDate(new DateTime('today'));
         $event->setEndDate(new DateTime('yesterday'));
@@ -33,19 +36,17 @@ final class ComparisonConstraintsTest extends TestCase
         $this->assertViolations(
             [
                 'endDate' => 'This value is not valid.',
-            ],
-            $this->validator->validate($event)
+            ], $this->validator->validate($event)
         );
     }
 
-    /**
-     * @param string[] $expected
-     */
     private function assertViolations(array $expected, ConstraintViolationListInterface $violationList): void
-    {
+    
+{
+
         $violations = [];
         foreach ($violationList as $violation) {
-            /* @var ConstraintViolationInterface $violation */
+/* @var ConstraintViolationInterface $violation */
             $violations[$violation->getPropertyPath()] = $violation->getMessage();
         }
 
